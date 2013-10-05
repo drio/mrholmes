@@ -18,11 +18,14 @@ function test_array_of_files(data) {
   });
 }
 
-co.collector()
+var collector = co.collector(),
+    pf_engine = collector.pf_engines.process_file_array;
+
+collector
   .this_dirs(['test/test_dir'])
   .run(function(data) {
     console.log(data);
     test_array_of_files(data);
-  });
+  }, pf_engine);
 
 
