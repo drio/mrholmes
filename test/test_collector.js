@@ -4,7 +4,7 @@ var path     = require('path'),
     fs       = require('fs'),
     lib      = path.join(path.dirname(fs.realpathSync(__filename)), '../lib');
     assert   = require('assert'),
-    mrholmes = require(lib + '/mrholmes');
+    co = require(lib + '/collector');
 
 function test_array_of_files(data) {
   var t_files = { 'test/test_dir/a_link/foo.txt' : true,
@@ -18,11 +18,11 @@ function test_array_of_files(data) {
   });
 }
 
-mrholmes.collector()
-        .this_dirs(['test/test_dir'])
-        .run(function(data) {
-          console.log(data);
-          test_array_of_files(data);
-        });
+co.collector()
+  .this_dirs(['test/test_dir'])
+  .run(function(data) {
+    console.log(data);
+    test_array_of_files(data);
+  });
 
 
