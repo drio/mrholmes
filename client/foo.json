@@ -1,0 +1,63 @@
+{
+  "name": "/",
+  "size": 0,
+  "children": [
+    {
+      "name": "Users",
+      "size": 4,
+      "children": [
+        {
+          "name": "drio",
+          "size": 4,
+          "children": [
+            {
+              "name": "dev",
+              "size": 4,
+              "children": [
+                {
+                  "name": "mrholmes",
+                  "size": 4,
+                  "children": [
+                    {
+                      "name": "test",
+                      "size": 4,
+                      "children": [
+                        {
+                          "name": "test_dir",
+                          "size": 4,
+                          "children": [
+                            {
+                              "name": "a_link",
+                              "size": 4,
+                              "children": []
+                            },
+                            {
+                              "name": "dir1",
+                              "size": 4,
+                              "children": []
+                            },
+                            {
+                              "name": "dir2",
+                              "size": 58,
+                              "children": [
+                                {
+                                  "name": "dir21",
+                                  "size": 29,
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
