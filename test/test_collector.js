@@ -10,62 +10,67 @@ function pretty(o) {
   console.log(JSON.stringify(o, null, 2));
 }
 
-function test_array_of_files() {
-  function t_array_of_files(data) {
-    var t_files = { 'test/test_dir/a_link/foo.txt' : true,
-                    'test/test_dir/dir1/foo.txt' : true,
-                    'test/test_dir/file1.txt' : true };
-
-    assert(data.length === 3);
-    data.forEach(function(e, i, c) {
-      assert(t_files[e.path]);
-      assert(e.file === 'f');
-    });
-  }
-
-  var collector = co.collector(),
-      pf_engine = collector.pf_engines.process_file_array;
-
-  collector
-    .this_dirs(['test/test_dir'])
-    .run(function(data) {
-      //console.log(data);
-      t_array_of_files(data);
-    }, pf_engine);
-}
-
 function test_tree() {
   var collector = co.collector(),
       pf_engine = collector.pf_engines.process_file_tree;
 
   function t_tree(t) {
-    pretty(t);
-    // /
-    assert(t.name === "/", "testing root failed");
-    assert(t.children.length === 1, "root has the wrong number of nodes");
+    //pretty(t);
+    var cwd = process.cwd(),
+        sp = (cwd + "/test/test_dir").split('/');
 
-    // cd test
+    assert(t.name === "/");
+    assert(t.children.length === 1);
     t = t.children[0];
-    assert(t.name === "test_dir", "no level1 dir: test_dir");
-    assert(t.children.length === 3, "level1 wrong # of nodes");
 
-    // cd test/dir1
-    t = t.children;
-    _ = { 'a_link':true, 'dir1':true, 'file1.txt':true };
-    t.forEach(function(e, i, a) {
-      assert(_[e.name], e + "node should not be in test/dir");
-    });
+    assert(t.name === sp[1]); // Users
+    assert(t.children.length === 1);
+    t = t.children[0];
+
+    assert(t.name === sp[2]); // drio
+    assert(t.children.length === 1);
+    t = t.children[0];
+
+    assert(t.name === sp[3]); // dev
+    assert(t.children.length === 1);
+    t = t.children[0];
+
+    assert(t.name === sp[4]); // mrholmes
+    assert(t.children.length === 1);
+    t = t.children[0];
+
+    assert(t.name === sp[5]); // test
+    assert(t.children.length === 1);
+    t = t.children[0];
+
+    assert(t.name === sp[6]); // test_dir
+    assert(t.children.length === 3);
+
+    c = t.children;
+    assert(c[0].name === "a_link");
+    assert(c[0].size === 4);
+    assert(c[1].name === "dir1");
+    assert(c[1].size === 4);
+    assert(c[2].name === "dir2");
+    assert(c[2].size === 58);
+    t = t.children[2];
+
+    assert(t.name === "dir2"); // dir2
+    assert(t.children.length === 1);
+    t = t.children[0];
+
+    assert(t.name === "dir21"); // dir2
+    assert(t.children.length === 0);
+    assert(t.size === 29);
   }
 
   collector
-    .this_dirs(['test/test_dir'])
+    .this_dirs([process.cwd() + '/test/test_dir'])
     .run(function(data) {
       //pretty(data);
       t_tree(data);
     }, pf_engine);
 }
 
-test_array_of_files();
 test_tree();
-
 
