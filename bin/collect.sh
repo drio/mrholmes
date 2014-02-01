@@ -14,7 +14,7 @@ dir=$1
 
 [ ".$dir"  == "." ]     && usage "Need input directory."
 [ ! -d "$dir" ]         && usage "<$dir> is not a directory."
-[ `uname` == "Darwin" ] && stat="gstat" || stat=="stat"
+[ `uname` == "Darwin" ] && stat="gstat" || stat="stat"
 
 header="path size user group t_birth t_access t_modify t_change type n_hard_links"
 ( for w in $header; do echo -ne "${w}\t"; done) | rev | cut -c 3- | rev
