@@ -1,14 +1,9 @@
 #!/bin/bash
 
-usage() {
-  local msg=$1
-  [ ".$msg" != "." ] && echo ":/ $msg"
-  cat << EOF
-Usage:
-  $ `basename $0` <start_dir>
-EOF
-  exit 0
-}
+usage="$ `basename $0` <dir_to_collect_data_from>"
+
+src="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source $src/common.sh
 
 dir=$1
 
