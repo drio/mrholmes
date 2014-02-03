@@ -1,0 +1,16 @@
+
+%W     time of file birth, seconds since Epoch; 0 if unknown
+  -> this seems it was introduced in ext4.
+     ? when unavailable.
+%X     time of last access, seconds since Epoch
+  -> atime: when you accessed the file even for reading (head, cat... )
+%Y     time of last modification, seconds since Epoch
+  -> mtime: data was added or removed from file
+%Z     time of last change, seconds since Epoch
+  -> ctime (inode change): Changes even if metadata changes
+
+
+Notice the posibility of having weird values for these variables when
+your underlying storage device is a network device.
+
+
